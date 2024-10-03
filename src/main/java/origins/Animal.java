@@ -1,6 +1,6 @@
 package origins;
 
-public class Animal {
+public abstract class Animal {
 
   protected String name;
 
