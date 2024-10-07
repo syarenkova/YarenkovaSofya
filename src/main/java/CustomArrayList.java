@@ -1,20 +1,24 @@
+/**
+ * Realization of array with support for dynamic resizing
+ *
+ * @param <A> type of elements stored in the array
+ */
 public class CustomArrayList<A> implements Methodable<A>{
 
-  // setting min capacity, capacity and creating array of Objects
   private Object[] array;
   private final int MIN_CAPACITY = 5;
   private int capacity = MIN_CAPACITY;
 
-  //setting size and current index values
   int currIndex = -1;
-  int size = currIndex + 1;
+  int size;
 
-  // constructor
   public CustomArrayList() {
     array = new Object[MIN_CAPACITY];
   }
 
-  //method that increases the capacity. basically the realisation of dynamic array
+  /**
+   * increases the capacity of array in half by creating dublicate array. basically the realisation of dynamic array
+   */
   public void increaseCapacity() {
     capacity *= 2;
     Object[] new_array = new Object[capacity];
@@ -22,17 +26,24 @@ public class CustomArrayList<A> implements Methodable<A>{
     array = new_array;
   }
 
-  //checking size
+  /***
+   * updaiting the size of array
+   * @return used size of array
+   */
   public int size() {
     size = currIndex + 1;
     return size;
   }
 
-  //adding elements to array. if the element cant be placed here, array increases
+  /**
+   * method, that adds elements to the end of array. if the element cant be placed here, array increases its capacity
+   *
+   * @param element that should be add to the array
+   */
   @Override
   public void add(A element) {
     if (element == null) {
-      System.out.println("You can't add null elements!");
+      throw new IllegalArgumentException("You can't add null elements!");
     } else if (currIndex + 1 == capacity) {
       increaseCapacity();
       currIndex++;
@@ -43,7 +54,11 @@ public class CustomArrayList<A> implements Methodable<A>{
     }
   }
 
-  // deleting elements from array. basically creates copy that doesn't have that element
+  /**
+   * method that deletes elements from array and moves next elements to the left
+   *
+   * @params index of element that should be deleted
+   */
   @Override
   public void delete(int index) {
     Object[] new_array = new Object[capacity];
@@ -53,7 +68,12 @@ public class CustomArrayList<A> implements Methodable<A>{
     currIndex--;
   }
 
-  //getting element from the array
+  /**
+   * method that returns element which is located on the position of given index
+   *
+   * @param index of element
+   * @return element
+   */
   @Override
   public A get(int index) {
     return (A) array[index];
